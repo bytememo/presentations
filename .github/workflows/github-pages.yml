@@ -44,18 +44,6 @@ jobs:
           # Recommend to set lang for your deck to get better rendering for Open Graph image
           LANG: en-US
 
-      - name: Build Marp slide deck in subdirectory
-        run: |
-          CHROME_PATH=$(node .puppeteer.js) npm run build
-          touch ./dist/.nojekyll
-        working-directory: public/demo
-        env:
-          # Please update URL if you want to use custom domain
-          URL: https://${{ github.event.repository.owner.name }}.github.io/${{ github.event.repository.name }}/public/demo
-
-          # Recommend to set lang for your deck to get better rendering for Open Graph image
-          LANG: en-US
-
       - name: Deploy to GitHub pages
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
