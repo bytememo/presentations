@@ -74,3 +74,7 @@ https://github.com/yhatt/marp-cli-example
 
 https://github.com/yhatt/marp-cli-example
 
+---
+other slides：
+---?include=public/demo/PITCHME.md
+
