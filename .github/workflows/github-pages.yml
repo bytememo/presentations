@@ -16,6 +16,7 @@ jobs:
         run: |
           echo ${{ env.slide-name }}
           npm install
+          npm i playwright-chromium
           npm run build -- ./slides/${{ env.slide-name }}.md --base /presentations/${{ env.slide-name }}/
 
       - name: Deploy 🚀
