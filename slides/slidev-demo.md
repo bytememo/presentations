@@ -10,6 +10,8 @@ class: 'text-center'
 highlighter: shiki
 # show line numbers in code blocks
 lineNumbers: false
+# enbale download pdf
+download: true
 # some information about the slides, markdown enabled
 info: |
   ## Slidev Starter Template
@@ -74,7 +76,7 @@ h1 {
   background-size: 100%;
   -webkit-background-clip: text;
   -moz-background-clip: text;
-  -webkit-text-fill-color: transparent; 
+  -webkit-text-fill-color: transparent;
   -moz-text-fill-color: transparent;
 }
 </style>
@@ -121,7 +123,7 @@ interface User {
 
 function updateUser(id: number, update: User) {
   const user = getUser(id)
-  const newUser = {...user, ...update}  
+  const newUser = {...user, ...update}
   saveUser(id, newUser)
 }
 ```
@@ -248,7 +250,7 @@ Animations are powered by [@vueuse/motion](https://motion.vueuse.org/).
     />
   </div>
 
-  <div 
+  <div
     class="text-5xl absolute top-14 left-40 text-[#2B90B6] -z-1"
     v-motion
     :initial="{ x: -80, opacity: 0}"
