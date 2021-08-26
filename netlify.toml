@@ -1,3 +1,11 @@
+[build.environment]
+  NODE_VERSION = "14"
+
 [build]
   publish = "dist"
-  command = "npm i puppeteer && CHROME_PATH=$(node .puppeteer.js) npm run build"
+  command = "npm run build"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

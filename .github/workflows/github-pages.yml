@@ -1,53 +1,38 @@
-name: GitHub Pages
-
-on:
-  push:
-    branches:
-      - master
-
+name: Build and Deploy
+on: [push]
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
+    if: ${{ contains(github.event.head_commit.message, 'deploy') }}
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2.3.1
 
-      - name: Detect Node version from .nvmrc
-        id: node_version
-        run: echo "::set-output name=nvmrc::$(cat .nvmrc)"
-
-      - name: Install Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ steps.node_version.outputs.nvmrc }}
-
-      - uses: actions/cache@v1
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      - name: Install dependencies and Puppeteer
+      - name: Set env
         run: |
-          npm ci
-          sudo apt-get install libgbm-dev
-          npm i puppeteer --no-save
+          echo "slide-name=$(echo '${{ github.event.head_commit.message }}' | cut -d' ' -f 2)" >> $GITHUB_ENV
 
-      - name: Build Marp slide deck
+      - name: Install and Build 🔧
         run: |
-          CHROME_PATH=$(node .puppeteer.js) npm run build
-          touch ./dist/.nojekyll
-        env:
-          # Please update URL if you want to use custom domain
-          URL: https://${{ github.event.repository.owner.name }}.github.io/${{ github.event.repository.name }}
+          echo ${{ env.slide-name }}
+          npm install
+          npm run build -- ./slides/${{ env.slide-name }}.md --base /presentations/${{ env.slide-name }}/
 
-          # Recommend to set lang for your deck to get better rendering for Open Graph image
-          LANG: en-US
-
-      - name: Deploy to GitHub pages
-        uses: JamesIves/github-pages-deploy-action@releases/v3
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: dist
+          branch: gh-pages # The branch the action should deploy to.
+          folder: dist # The folder the action should deploy.
+          target-folder: ${{ env.slide-name }}
+          clean: false
+
+      - name: Checkout for README 🛎️
+        uses: actions/checkout@v2.3.1
+      - name: Update README
+        run: |
+          echo "|${{ env.slide-name }}|-|-|[link](https://bytememo.com/presentations/${{ env.slide-name }}/)|" >> README.md
+      - name: Commit README changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "readme: add ${{ env.slide-name }} link"
+          file_pattern: README.md

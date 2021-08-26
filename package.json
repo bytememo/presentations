@@ -1,19 +1,14 @@
 {
-  "name": "marp-cli-example",
-  "version": "0.0.0",
-  "author": "Yuki Hattori <yukihattori1116@gmail.com>",
-  "license": "WTFPL",
   "private": true,
   "scripts": {
-    "build": "rimraf dist && npm run -s og-image && npm run -s deck",
-    "deck": "find . -name '*_pitchme.md' -execdir marp --no-stdin {} -o dist/{}.html && cpy \"assets/**/*\" dist/assets",
-    "now-build": "npm run -s deck",
-    "og-image": "marp PITCHME.md -o dist/og-image.jpg",
-    "start": "marp -ps ."
+    "dev": "slidev --open",
+    "build": "slidev build",
+    "export": "slidev export"
   },
-  "devDependencies": {
-    "@marp-team/marp-cli": "^1.3.2",
-    "cpy-cli": "^3.1.1",
-    "rimraf": "^3.0.2"
-  }
+  "dependencies": {
+    "@slidev/cli": "^0.22.7",
+    "@slidev/theme-default": "*",
+    "@slidev/theme-seriph": "*"
+  },
+  "name": "slidev"
 }
