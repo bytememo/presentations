@@ -11,7 +11,7 @@ info: |
   Presentation slides for developers.
 
   Learn more at [Sli.dev](https://sli.dev)
-title: Welcome to Slidev
+title: Slidev Demo
 ---
 
 # Welcome to Slidev
