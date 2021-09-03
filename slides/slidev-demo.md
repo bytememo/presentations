@@ -118,6 +118,7 @@ function updateUser(id: number, update: User) {
   const user = getUser(id)
   const newUser = {...user, ...update}
   saveUser(id, newUser)
+  console.log("test)
 }
 ```
 
@@ -136,6 +137,7 @@ function updateUser(id: number, update: User) {
   display: none;
 }
 </style>
+
 
 ---
 

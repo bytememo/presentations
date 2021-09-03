@@ -4,4 +4,3 @@ Powered by [Slidev](https://sli.dev/).
 |  topic |  address |
 | :---  | :--- |
 |slidev-demo|[view](https://bytememo.com/presentations/slidev-demo/)|
-|slidev-demo|[view](https://bytememo.com/presentations/slidev-demo/)|
